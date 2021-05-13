@@ -237,4 +237,4 @@ def show_results(test_image):
     recommended_hashtags = generate_hashtags(f'test/{test_image}.jpg')
     print(', '.join(recommended_hashtags))
 
-show_results('travel')
+show_results('hair')
