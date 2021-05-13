@@ -4,8 +4,7 @@
 
 
 테스트 사진 :
-![classic](https://user-images.githubusercontent.com/76420201/118092946-b5097a00-b407-11eb-93bb-ddb395077c4a.GIF)
-
+<img src = "https://user-images.githubusercontent.com/76420201/118092946-b5097a00-b407-11eb-93bb-ddb395077c4a.GIF" width = "70%">
 
 
 결과 값 :
