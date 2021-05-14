@@ -12,7 +12,7 @@ from pyspark.ml.evaluation import RegressionEvaluator
 from pyspark.ml.recommendation import ALS, ALSModel
 # from sklearn.model_selection import train_test_split
 from functools import reduce
-from functions import prepare_image, extract_features
+from functions import prepare_image, extract_features, extract_features2
 import os
 from tqdm import tqdm
 from scipy.spatial.distance import cosine
@@ -201,7 +201,7 @@ recommender_df = recs_deep_clean.join(img_features, how='inner')
 def find_neighbor_vectors(image_path, k=5, recommender_df=recommender_df):
     """Find image features (user vectors) for similar images."""
     prep_image = prepare_image(image_path, where='local')
-    pics = extract_features(prep_image, neural_network)
+    pics = extract_features2(prep_image, neural_network)
     rdf = recommender_df.copy()
     rdf['dist'] = rdf['deep_features'].apply(lambda x: cosine(x, pics))
     rdf = rdf.sort_values(by='dist')
