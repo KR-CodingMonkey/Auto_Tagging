@@ -15,7 +15,7 @@ from functools import reduce
 from functions import prepare_image, extract_features
 import os
 from tqdm import tqdm
- #from scipy.spatial.distance import cosine
+from scipy.spatial.distance import cosine
 np.random.seed(0)
 
 json_file_names = os.listdir('metadata')
@@ -128,7 +128,7 @@ als.setSeed(0)
 
 hashtag_spark_df = spark.createDataFrame(hashtag_rec_data)
 
-print(hashtag_spark_df)
+# print(hashtag_spark_df)
 
 als_model = als.fit(hashtag_spark_df)
 # als_model.write().overwrite().save('als')
@@ -229,10 +229,10 @@ def generate_hashtags(image_path):
     return output
 
 def show_results(test_image):
-    img = mpimg.imread(f'test/{test_image}.jpg')
-    plt.figure(figsize=(9, 9))
-    plt.title(f'Original Hashtag: {test_image.upper()}', fontsize=32)        
-    plt.imshow(img)
+    # img = mpimg.imread(f'test/{test_image}.jpg')
+    # plt.figure(figsize=(9, 9))
+    # plt.title(f'Original Hashtag: {test_image.upper()}', fontsize=32)        
+    # plt.imshow(img)
     
     recommended_hashtags = generate_hashtags(f'test/{test_image}.jpg')
     print(', '.join(recommended_hashtags))
