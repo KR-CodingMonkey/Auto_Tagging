@@ -104,9 +104,12 @@ for i, row in tqdm(hashtag_metadata.iterrows()):
 pics = pd.DataFrame(pics)
 pics.index = pics['name']
 
+spark = SparkSession.builder.master('local').getOrCreate()
 # als_model.write().overwrite().save('als')
-als_model = ALS.load('als')
+als_model = ALSModel.load('als')
 #--------------------------------------------------------------
+recs = als_model.recommendForAllUsers(numItems=10).toPandas()
+
 hashtag_index = list(all_hashtags)
 def lookup_hashtag(hashtag_id):
     return hashtag_index[hashtag_id]
@@ -187,12 +190,12 @@ def generate_hashtags(image_path):
     return output
 
 def show_results(test_image):
-    img = mpimg.imread(f'test/{test_image}.jpg')
-    plt.figure(figsize=(9, 9))
-    plt.title(f'Original Hashtag: {test_image.upper()}', fontsize=32)        
-    plt.imshow(img)
+    # img = mpimg.imread(f'test/{test_image}.jpg')
+    # plt.figure(figsize=(9, 9))
+    # plt.title(f'Original Hashtag: {test_image.upper()}', fontsize=32)        
+    # plt.imshow(img)
     
     recommended_hashtags = generate_hashtags(f'test/{test_image}.jpg')
     print(', '.join(recommended_hashtags))
 
-show_results('travel')
+show_results('hair')
