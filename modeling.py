@@ -59,41 +59,6 @@ for i in hashtag_metadata.index:
         )
 hashtag_rec_data = pd.DataFrame(hashtag_rec_data)
 
-#img_shape = (160, 160, 3)
-
-# Create the base model from the pre-trained model MobileNet V2
-#base_model = MobileNetV2(input_shape=img_shape, include_top=False, weights='imagenet')
-
-#global_average_layer = tf.keras.layers.GlobalAveragePooling2D()
-
-#neural_network = tf.keras.Sequential([
-#  base_model,
-#  global_average_layer,
-#])
-
-#pics = []
-#for i, row in tqdm(hashtag_metadata.iterrows()):
-
-#    name = row['image_local_name']
-#    hashtag = row['search_hashtag']
-#    img_path = f'data/{hashtag}/{name}'
-#    try:
-#        img = prepare_image(img_path, where='local')
-#        deep_features = extract_features(img, neural_network)
-#        pics.append({'pic': img, 
-#                     'hashtag': hashtag, 
-#                     'name': name,
-#                     'deep_features': deep_features})
-#    except Exception as e:
-#        error_type = type(e).__name__
-#        if error_type == "NotFoundError":
-#            pass
-#        else:
-#            print(e)
-
-#pics = pd.DataFrame(pics)
-#pics.index = pics['name']
-
 spark = SparkSession.builder.master('local').getOrCreate()
 
 #- setRank : (default : 10) 사용할 feature vector의 size, 더 큰 vector는 더 나은 모델을 만들 수 있지만 계산 비용(cost)이 더 커지며,
@@ -112,5 +77,5 @@ hashtag_spark_df = spark.createDataFrame(hashtag_rec_data)
 
 print(hashtag_spark_df)
 als_model = als.fit(hashtag_spark_df)
-als_mode.save('als')
+als_model.save('als')
 #als_model.write().overwrite().save('als')

@@ -103,7 +103,6 @@ for i, row in tqdm(hashtag_metadata.iterrows()):
             # storage, skip it and continue
             pass
         else:
-#             pass
             print(e)
 
 pics = pd.DataFrame(pics)
